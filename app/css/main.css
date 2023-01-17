@@ -1,0 +1,387 @@
+/* Сбрасываем стили на всей странице */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Переменная расчёта отношения ширины и высоты */
+  --index: calc(1vw + 1vh);
+  /* Переменная цвета текста */
+  --text: #e7e7e0;
+  /* Переменная плавного перехода, поскольку плагин плавной прокрутки использует похожий плавный переход, мы подобрали его. */
+  --transition: transform 0.75s cubic-bezier(0.075, 0.5, 0, 1);
+}
+
+/* Определяем стили и путь для шрифтов, устанавливаем суффикс _f
+чтобы названия не перекликались и шрифты брались только из папки fonts */
+@font-face {
+  font-family: raleway_f;
+  src: url(../fonts/raleway-regular.woff2);
+}
+
+@font-face {
+  font-family: raleway_f;
+  src: url(../fonts/raleway-black.woff2);
+  font-weight: 900;
+}
+
+/* Основные стили */
+body {
+  background-color: #010101;
+  font-family: raleway_f, sans-serif;
+  line-height: 1.55;
+}
+
+/* Cкрываем scrollbar */
+::-webkit-scrollbar {
+  /* chrome based */
+  width: 0px; /* ширина scrollbar'a */
+  background: transparent; /* опционально */
+}
+
+html {
+  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Стили для летающих птичек */
+
+#birds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Блок preloader */
+
+.preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  transition: 0.5s all;
+  opacity: 1;
+  visibility: visible;
+  text-align: center;
+
+  z-index: 100;
+}
+
+.preloader p {
+  font-size: 36px;
+  color: var(--text);
+}
+
+.loader {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border: 5px solid var(--text);
+  border-radius: 50%;
+  border-top-color: black;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+  animation: 1.5s spin infinite;
+}
+
+.preloader__none {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Блок .content - основная обёртка */
+.content {
+  will-change: transform;
+}
+
+/* Блок main__header */
+
+.main__header {
+  position: relative;
+}
+.main__header::after {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: calc(var(--index) * 10);
+  background-image: url(../img/ground.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  bottom: calc(var(--index) * -4.5);
+}
+
+.layers {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  /*Положение блока устанавливается относительно изначального */
+  position: relative;
+}
+
+.layer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  /* will-change говорит, что данным свойствам нужно уделить больше аппаратного внимания */
+  will-change: transform;
+  transition: var(--transition);
+
+  z-index: 2;
+}
+
+/* Передвигаем слои с помощью переменной, переданной в html */
+.layers__base {
+  /* top: calc(var(--scrollTop) / 1.6); */
+  transform: translate3d(0, calc(var(--scrollTop) / 1.6), 0);
+  z-index: 0;
+}
+.layers__midle {
+  transform: translate3d(0, calc(var(--scrollTop) / 2.5), 0);
+}
+.layers__front {
+  transform: translate3d(0, calc(var(--scrollTop) / 5.7), 0);
+}
+
+/* Layers header */
+.layer__header {
+  z-index: 1;
+  transform: translate3d(0, calc(var(--scrollTop) / 2), 0);
+  transition: var(--transition);
+  will-change: transform;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: var(--text);
+  text-shadow: 0 0 15px #9e7d35;
+}
+
+.layers__title {
+  /* С помощью переменной отношения устанавливаем адаптивный размер и расстояние от букв для title */
+  font-size: calc(var(--index) * 2.5);
+  letter-spacing: calc(var(--index) / 2.25);
+
+  transform: translate(0, 100%);
+  opacity: 0;
+}
+.layers__caption {
+  font-size: calc(var(--index) / 1.75);
+  letter-spacing: calc(var(--index) / 3.5);
+  margin-top: calc(var(--index) * -0.75);
+
+  transform: translate(0, 500%);
+  opacity: 0;
+}
+
+/* 
+Layers animation
+ */
+
+.layers__title--active {
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: all 2s ease;
+}
+
+.layers__caption--active {
+    transform: translate(0, 0);
+    opacity: 1;
+    transition: all 3s ease;
+}
+
+/* Menu */
+
+#music__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 30px;
+  left: 100px;
+  width: 30px;
+  height: 30px;
+  cursor: none;
+
+  transition: all 0.1s ease-in;
+  z-index: 10;
+}
+
+.music__icon {
+  color: var(--text);
+}
+
+.music__icon-active {
+  color: #9e7d35;
+}
+
+/* Main article */
+
+.main__article {
+  --main-article-transform: translate3d(0, calc(var(--scrollTop) / -7.5), 0);
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+
+.main__article-header {
+  text-transform: uppercase;
+  font-size: calc(var(--index) * 1.8);
+  letter-spacing: calc(var(--index) / 7.5);
+  font-weight: 900;
+
+  transform: var(--main-article-transform);
+  transition: var(--transition);
+
+  transform: translate(75%, 0);
+  opacity: 0;
+  will-change: transform;
+}
+
+.main__article-paragraph {
+  max-width: calc(var(--index) * 30);
+  font-size: calc(var(--index) * 0.9);
+  margin-top: calc(var(--index) / 1.25);
+
+  transform: var(--main-article-transform);
+  transition: var(--transition);
+
+  transform: translate(-50%, 0);
+  opacity: 0;
+
+  will-change: transform;
+}
+
+.main__article-content {
+}
+
+.copy {
+  position: absolute;
+  bottom: calc(var(--index) * 2.5);
+  font-size: calc(var(--index) * 0.75);
+  letter-spacing: calc(var(--index) / 37.5);
+  opacity: 0.5;
+}
+
+/* 
+
+ARTICLE ANIMATION
+
+*/
+
+.main__article-header--active{
+    transform: var(--main-article-transform);
+    transition: all 2s cubic-bezier(0.075, 0.5, 0, 1);
+    opacity: 1;
+}
+
+
+.main__article-paragraph--active {
+  transform: var(--main-article-transform);
+  transition: all 2s cubic-bezier(0.075, 0.5, 0, 1);
+  opacity: 1;
+}
+
+/* 
+
+MENU AND CURSOR
+
+*/
+
+body {
+  width: 100%;
+  cursor: none;
+}
+
+.cursor {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+.cursor--large {
+  --size: 40px;
+  border: 1px solid rgb(255, 60, 60);
+}
+.cursor--small {
+  --size: 10px;
+  background: rgb(255, 60, 60);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+main {
+  position: absolute;
+  right: 100px;
+  top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+main button {
+  --size: 60px;
+  border: none;
+  min-width: var(--size);
+  min-height: var(--size);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  -webkit-transition: background 200ms ease, color 200ms ease;
+  transition: background 200ms ease, color 200ms ease;
+  cursor: none;
+  z-index: 10000;
+}
+main:hover button {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.04);
+}
+main:hover button:hover {
+  color: #fff;
+}

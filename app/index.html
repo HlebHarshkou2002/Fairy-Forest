@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./img/icons/spider-icon.png" type="image/x-icon">
+
+    <!-- Подключаем основной css файл -->
+    <link rel="stylesheet" href="./css/main.css" />
+
+    <!-- Подключаем библиотеки GSAP -->
+    <script src="./libs/gsap/gsap.min.js" defer></script>
+    <script src="./libs/gsap/ScrollTrigger.min.js" defer></script>
+    <script src="./libs/gsap/ScrollSmoother.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js" defer></script>
+
+    <!-- Подключаем библиотеки Vanta.js -->
+    <script src="./libs/vanta/three.min.js" defer></script>
+    <script src="./libs/vanta/vanta.birds.min.js" defer></script>
+
+    <!-- Подключаем локальные скрипты приложения с помощью defer -->
+    <script src="./scripts/app.js" defer></script>
+    <script src="./scripts/modules/parallax.js" defer></script>
+    <script src="./scripts/modules/audio.js" defer></script>
+    <script src="./scripts/modules/smooth-scroll.js" defer></script>
+    <script src="./scripts/modules/preloader.js" defer></script>
+    <script src="./scripts/modules/birds.js" defer></script>
+    <script src="./scripts/modules/menu-cursor.js" defer></script>
+
+    <script src="./scripts/modules/animations/layers-animation.js" defer></script>
+    <script src="./scripts/modules/animations/article-animation.js" defer></script>
+
+
+
+
+
+    <!-- Подключаем иконки приложения -->
+    <script src="https://kit.fontawesome.com/71c2497886.js" crossorigin="anonymous" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" defer></script>
+
+    <title>Fairy Forest</title>
+  </head>
+  <body>
+    
+
+    <div id="preloader" class="preloader">
+        <div class="loader">       
+        </div>
+        <p>Click to play music</p>
+    </div>
+
+    <div id="birds"></div>
+
+    <div class="wrapper">
+        <div class="content">        
+
+            <header class="main__header">      
+
+                <div class="layers">
+          
+                  <div class="layer__header">
+                    <div class="layers__caption layers__caption--disable">Welcome to Parallax</div>
+                    <div class="layers__title layers__title--disable">Fairy Forest</div>
+                  </div>
+          
+                  <div class="layer layers__base" style="background-image: url(./img/layer-base.png)"></div>
+                  <div class="layer layers__midle" style="background-image: url(./img/layer-middle.png)"></div>
+                  <div class="layer layers__front" style="background-image: url(./img/layer-front.png)"></div>
+          
+                </div>
+            </header>
+          
+              <article class="main__article" style="background-image: url(./img/dungeon.jpg)">
+
+                <div class="menu">
+                  <div class="menu__wrapper">
+
+                    <i class="fa-solid fa-volume-high music__icon" id="music__icon"></i>
+
+                  <main>
+
+                    <button>
+                      <ion-icon name="logo-facebook"></ion-icon>
+                    </button>
+                    <button>
+                      <ion-icon name="logo-twitter"></ion-icon>
+                    </button>
+                    <button>
+                      <ion-icon name="logo-instagram"></ion-icon>
+                      
+                    </button>
+                    <button>
+                      <ion-icon name="logo-youtube"></ion-icon>
+                    </button>
+                    <button>
+                      <ion-icon name="logo-dribbble"></ion-icon>
+                    </button>
+
+                  </main>
+
+                  </div>
+                </div>
+
+                
+
+                  
+
+                  <div class="main__article-content">
+
+                      <div class="main__article-header main__article-header--disable">To be continued</div>
+
+                      <p class="main__article-paragraph main__article-paragraph--disable">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem mollitia molestiae enim!
+                           Illum facilis atque eveniet consequuntur, animi dolorum 
+                           similique placeat mollitia tenetur natus iste expedita velit.
+                           Cupiditate enim perferendis eos quas.
+                      </p>
+                      <div class="copy">©Glebabasta</div>
+                  </div>
+              </article>
+
+
+        </div>
+    </div>
+    
+
+    <div class="cursor cursor--large" id="cursor--large" ></div>
+    <div class="cursor cursor--small"></div>
+    
+
+  </body>
+</html>
